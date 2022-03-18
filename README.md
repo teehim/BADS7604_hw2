@@ -94,29 +94,29 @@
 
 ในส่วนของ Train vs Validation Accuracy ของทั้ง 3 models จะเป็นไปดังกราฟต่อไปนี้้
 
-1. VGG16
+**1. VGG16**
 
 <img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_vgg16.png?raw=true" style="width:500px;"/>
 
-Final epoch accuracy:
-    - train: 1.00
-    - validation: 0.9668
+    Final epoch accuracy:
+        - train: 1.00
+        - validation: 0.9668
 
-2. EfficientNet-B4
+**2. EfficientNet-B4**
 
 <img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_eff.png?raw=true" style="width:500px;"/>
 
-Final epoch accuracy:
-    - train: 0.9964
-    - validation: 0.9668
+    Final epoch accuracy:
+        - train: 0.9964
+        - validation: 0.9668
 
-3. ResNet50
+**3. ResNet50**
 
 <img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_res.png?raw=true" style="width:500px;"/>
 
-Final epoch accuracy:
-    - train: 1.00
-    - validation: 0.9419
+    Final epoch accuracy:
+        - train: 1.00
+        - validation: 0.9419
 
 ถ้าหากดูจาก Validation Accuracy แล้ว VGG16 ได้ค่า Accuracy ที่มากที่สุดจากทั้ง 3 models
 
@@ -124,9 +124,9 @@ Final epoch accuracy:
 
 ในส่วนของ Test Data เราทำการเปรียบเทียบค่า Accuracy ของทั้ง 3 models และได้ผลลัพธ์ดังนี้
 
-- VGG16: 0.9594
-- EfficientNet-B4: 0.9710
-- ResNet50: 0.9427
+    - VGG16: 0.9594
+    - EfficientNet-B4: 0.9710
+    - ResNet50: 0.9427
 
 ซึ่ง EfficientNet-B4 ได้ค่า Accuracy ที่มากที่สุด ซึ่งเป็นไปตามที่คาดการณ์ เพราะค่า Top-1 Accuracy บน Imagenet dataset ของ EfficientNet-B4 นั้นมีค่ามากที่สุดจากทั้ง 3 models
 
@@ -136,26 +136,27 @@ Final epoch accuracy:
 ทางกลุ่มเราทำการเปรียบเทียบโดยดูจากค่า Accuracy ที่ได้จากบน Test Data โดยเราทำการดู Accuracy แยกเป็นต่อ class แทน เนื่องจากจะทำให้เห็นความแตกต่างของ Accuracy ของแต่ล่ะ class ว่ามีประสิทธิภาพที่ดี หรือแย่กว่าได้ชัดเจน
 โดยเราทำการเปรียบเทียบโดยใช้ EfficientNet-B4 เนื่องจากเป็น model ที่ได้ค่า Test Accuracy มากที่สุด
 
-1. Real Dog Accuracy
+**1. Real Dog Accuracy**
 
 ในส่วนของ Real Dog เราจะทำการดู Accuracy ของ Test Data เฉพาะรูปที่เป็นสุนัขจริงๆเท่านั้น 
 และเนื่องจาก Pretrained model นั้นมี class ที่เป็นไปได้ทั้งหมด 1000 class เราจึงทำการวัด Accuracy ด้วยการดูว่า class ที่ pretrained model ทำนายออกมานั้น เป็น class ที่จัดเป็นสุนัข หรือสัตว์สายพันธุ์ใกล้เคียงกัน (เช่น หมาป่า หรือสุนัขจิ้งจอก) หรือไม่ โดย class ทั้งหมดที่จัดว่าอยู่ในหมวดหมู่นี้มีทั้งหมด 206 classes
 
 โดยค่า Accuracy จะได้ดังต่อไปนี้
 
-Pretrained EfficientNet-B4: 0.9934
-Model #2 (Efficientnet-B4 as Feature Extractor): 0.9664
+    - Pretrained EfficientNet-B4: 0.9934
+    - Model #2 (Efficientnet-B4 as Feature Extractor): 0.9664
 
 จะสังเกตว่า Accuracy ของ Model ของเรานั้นได้ค่าที่ต่ำกว่า pretrained model
 
-2. Toy Dog Accuracy
+**2. Toy Dog Accuracy**
 
 ในส่วนของ Toy Dog เราจะทำการดู Accuracy ของ Test Data เฉพาะรูปที่เป็นสุนัขของเล่นเท่านั้น 
 โดย class ของ pretrained model ที่เราจัดว่าอยู่ในหมวดหมู่ของสุนัขของเล่นนั้นมีทั้งหมด 5 classes ('miniature_poodle','toy_terrier','toy_poodle','miniature_schnauzer','miniature_pinscher')
 
 โดยค่า Accuracy จะได้ดังต่อไปนี้
-Pretrained EfficientNet-B4: 0.3571
-Model #2 (Efficientnet-B4 as Feature Extractor): 0.9745
+
+    - Pretrained EfficientNet-B4: 0.3571
+    - Model #2 (Efficientnet-B4 as Feature Extractor): 0.9745
 
 จะสังเกตว่า Accuracy ของ Model ของเรานั้นได้ค่าที่สูงกว่า pretrained model มาก
 
