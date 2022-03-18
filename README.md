@@ -143,11 +143,11 @@
 
 ซึ่งเมื่อทำการสุ่มรูปสุนัขของเล่นที่มีพื้นหลังสีขาวขึ้นมาดูแล้ว พบว่า model นั้นทำนายโดยดูจากรูปบริเวณของเล่นเป็นส่วนใหญ่
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM1.png?raw=true" style="width:200px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM1.png?raw=true" style="width:500px;"/>
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM2.png?raw=true" style="width:200px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM2.png?raw=true" style="width:500px;"/>
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM3.png?raw=true" style="width:200px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM3.png?raw=true" style="width:500px;"/>
 
 ---
 
