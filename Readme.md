@@ -96,7 +96,7 @@
 
 1. VGG16
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_vgg16.png?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_vgg16.png?raw=true" style="width:500px;"/>
 
 Final epoch accuracy:
     - train: 1.00
@@ -104,7 +104,7 @@ Final epoch accuracy:
 
 2. EfficientNet-B4
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_eff.png?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_eff.png?raw=true" style="width:500px;"/>
 
 Final epoch accuracy:
     - train: 0.9964
@@ -112,7 +112,7 @@ Final epoch accuracy:
 
 3. ResNet50
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_res.png?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_res.png?raw=true" style="width:500px;"/>
 
 Final epoch accuracy:
     - train: 1.00
