@@ -59,10 +59,10 @@
     - Optimizer: Adam
     - Learning rate: 0.001
     - Loss Function: BinaryCrossentropy
-    - Batch size: 128
+    - Batch size: 64
     - Epoch: 10
 
-    เวลาที่ใช้ในการ Train 22 วินาที
+    เวลาที่ใช้ในการ Train 21 วินาที
 
 #### Model #2 (Efficientnet-B4 as Feature Extractor)
 
@@ -74,7 +74,7 @@
     - Batch size: 32
     - Epoch: 10
 
-    เวลาที่ใช้ในการ Train 48 วินาที
+    เวลาที่ใช้ในการ Train 73 วินาที
 
 #### Model #3 (ResNet50 as Feature Extractor)
 
@@ -83,10 +83,10 @@
     - Optimizer: Adam
     - Learning rate: 0.001
     - Loss Function: BinaryCrossentropy
-    - Batch size: 32
+    - Batch size: 64
     - Epoch: 10
 
-    เวลาที่ใช้ในการ Train 66 วินาที
+    เวลาที่ใช้ในการ Train 21 วินาที
 
 ## Results
 
@@ -96,7 +96,7 @@
 
 1. VGG16
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_vgg16.JPG?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_vgg16.png?raw=true" style="width:500px;"/>
 
 Final epoch accuracy:
     - train: 1.00
@@ -104,7 +104,7 @@ Final epoch accuracy:
 
 2. EfficientNet-B4
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_eff.JPG?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_eff.png?raw=true" style="width:500px;"/>
 
 Final epoch accuracy:
     - train: 0.9964
@@ -112,7 +112,7 @@ Final epoch accuracy:
 
 3. ResNet50
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_res.JPG?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_res.png?raw=true" style="width:500px;"/>
 
 Final epoch accuracy:
     - train: 1.00
