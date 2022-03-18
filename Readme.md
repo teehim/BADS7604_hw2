@@ -32,7 +32,7 @@
 
 #### Data pre-processing
 
-รูปภาพทั้งหมดจะถูก preprocess โดยจาก resize ให้อยู่ในขนาด 224 x 224 สำหรับ vgg16 และ 380 x 380 สำหรับ efficientnet-b4 และแปลงให้กลายเป็น array (3-channels)
+รูปภาพทั้งหมดจะถูก preprocess โดยจาก resize ให้อยู่ในขนาด 224 x 224 สำหรับ vgg16, ResNet50 และ 380 x 380 สำหรับ efficientnet-b4 และแปลงให้กลายเป็น array (3-channels)
 จากนั้นจึงนำ array ที่ได้ไปผ่าน function preprocess_input ของ keras ตาม network ที่เลือกใช้ (e.g. vgg16)
 
 
@@ -45,16 +45,53 @@
 
 ## Network architecture
 
-เราเลือกใช้ pretrained model 2 ตัว ได้แก่ VGG16 และ Efficientnet-B4 เป็น model ที่ใช้ในการเปรียบเทียบประสิทธิภาพ และใช้สำหรับทำ feature extraction โดยรายละเอียดของ 2 model จะมีดังนี้
+เราเลือกใช้ pretrained model 32 ตัว ได้แก่ VGG16 ,Efficientnet-B4 และ ResNet50 เป็น model ที่ใช้ในการเปรียบเทียบประสิทธิภาพ และใช้สำหรับทำ feature extraction โดยรายละเอียดของ 3 model จะมีดังนี้
 
 #### VGG16
 
+ในส่วนของ VGG16 จะมี Architecture ดังรูปต่อไปนี้
 
-#### Efficientnet-B4
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/vgg_arch.JPG?raw=true" style="width:700px;">
 
+#### EfficientNet-B4
+
+EfficientNet จะใช้หลักการ Compound Scaling Model ที่จะทำการ Scale Model ในทุกๆ dimension ไปพร้อมๆกัน (depth, width, input resolution)
+โดยที่จะสามารถแบ่ง model ออกเป็น 7 Block ซึ่งในแต่ล่ะ version ของ EfficientNet ส่วนประกอบของแต่ล่ะ Block จะมากน้อยแตกต่างกันไป
+
+โดย EfficientNet-B4 จะมี Architecture ดังรูปต่อไปนี้
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/effnet_module.JPG?raw=true" style="width:700px;">
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/effnet_sub_block.JPG?raw=true" style="width:700px;">
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/effnet.png?raw=true" style="width:700px;">
 
 #### ResNet50
 
+ResNet (Residual Network)เป็นโมเดลที่พัฒนาขึ้นมาเพื่อแก้ปัญหา Vanishing Gradient ของ CNN
+โดยใช้ Algorithm ที่เรียกว่า Skip Connections ที่สามารถส่งผ่าน Gradient ข้ามไปยัง Layer ต่างๆที่ต้องการได้
+ไม่ต้องส่งผ่านแบบ sequential แบบ CNN ดังนั้นการทำแบบนี้ก็สามารถแก้ปัญหา Vanishing Gradient ได้
+
+โครงสร้างหลักๆ ประกอบด้วย Conv 5 Layers และในขั้นตอนสุดท้ายจะใช้หลักการ Average pooling จากนั้นใช้ Softmax เป็น
+Activation function ในการ classify
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/resnet.png?raw=true" style="width:700px;">
+
+#### Our Model
+
+ในส่วนของ Model ของเรานั้น เราได้ทำการทดลองทั้งหมด 3 models ซึ่งจะใช้ pretrained model ข้างต้นมาเป็น feature extractor โดยทำการ freeze ทุกๆ layer และทำการตัด layer ที่เป็นส่วนของการ classify ออก
+แล้วต่อด้วย Linear Layer ที่เราสร้างขึ้นมา โดยทั้ง 3 models จะมีรูปแบบของ layer ที่เหมือนกันหมดซึ่งประกอบด้วย
+
+- Flatten Layer
+- Dense Layer (1024 nodes, relu activation function)
+- Dense Layer (2048 nodes, relu activation function)
+- Dense Layer (1024 nodes, relu activation function)
+- Dropout Layer (0.3 dropout rate)
+- Output Layer (2 nodes, softmax activation function)
+
+โดย model ที่ดีที่สุดที่เราเลือกคือ model ที่ใช้ EfficientNet เป็น feature extractor
+
+[Model Summary](https://github.com/teehim/BADS7604_hw2/blob/master/model_summary.txt)
 
 ## Training
 
@@ -102,7 +139,7 @@
 
 **1. VGG16**
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_vgg16.png?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_vgg16.png?raw=true" style="width:700px;"/>
 
     Final epoch accuracy:
         - train: 1.00
@@ -110,7 +147,7 @@
 
 **2. EfficientNet-B4**
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_eff.png?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_eff.png?raw=true" style="width:700px;"/>
 
     Final epoch accuracy:
         - train: 0.9964
@@ -118,7 +155,7 @@
 
 **3. ResNet50**
 
-<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_res.png?raw=true" style="width:500px;"/>
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_res.png?raw=true" style="width:700px;"/>
 
     Final epoch accuracy:
         - train: 1.00
@@ -198,7 +235,31 @@
 การทำ Transfer Learning โดยใช้ pretrained model ที่ train บน imagenet dataset แล้วมาใช้เป็น feature extractor ทำให้ได้ model ที่มีประสิทธิภาพที่ดี และไม่จำเป็นจะต้องทำการ train ในส่วนของ Convolutional Layer เลย ทำให้ทรัพยากรที่ใช้ในการ train นั้นลดลงมาก
 
 ## References
+- www.flickr.com
+- www.pexels.com
+- www.pinterest.com
+- pixabay.com
 - https://towardsdatascience.com/complete-architectural-details-of-all-efficientnet-models-5fd5b736142
+- https://medium.com/@mygreatlearning/what-is-vgg16-introduction-to-vgg16-f2d63849f615
+
+```
+    @article{DBLP:journals/corr/HeZRS15,
+        author    = {Kaiming He and
+                    Xiangyu Zhang and
+                    Shaoqing Ren and
+                    Jian Sun},
+        title     = {Deep Residual Learning for Image Recognition},
+        journal   = {CoRR},
+        volume    = {abs/1512.03385},
+        year      = {2015},
+        url       = {http://arxiv.org/abs/1512.03385},
+        eprinttype = {arXiv},
+        eprint    = {1512.03385},
+        timestamp = {Wed, 17 Apr 2019 17:23:45 +0200},
+        biburl    = {https://dblp.org/rec/journals/corr/HeZRS15.bib},
+        bibsource = {dblp computer science bibliography, https://dblp.org}
+    }
+```
 
 ## Members
 - (20%) 6220422048 กชกร เรืองศรี (รวบรวมรูปภาพ + ทดลอง InceptionV3)
