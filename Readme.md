@@ -8,7 +8,9 @@
 
 ## Data
 
-ทางกลุ่มเราได้ทำการรวบรวมรูปภาพโดยแบ่งเป็น 2 classes คือ 1. สุนัขจริง (Real Dog) 2. สุนัขของเล่น (Toy Dog)
+ทางกลุ่มเราได้ทำการรวบรวมรูปภาพโดยแบ่งเป็น 2 classes คือ 
+1. สุนัขจริง (Real Dog) 
+2. สุนัขของเล่น (Toy Dog)
 
 #### Data source
 
@@ -45,9 +47,12 @@
 #### Efficientnet-B4
 
 
+#### ResNet50
+
+
 ## Training
 
-#### VGG16 as Feature Extractor
+#### Model #1 (VGG16 as Feature Extractor)
 
     Trained on 1 NVDIA RTX 3080
 
@@ -59,7 +64,19 @@
 
     เวลาที่ใช้ในการ Train 22 วินาที
 
-#### Efficientnet-B4 as Feature Extractor
+#### Model #2 (Efficientnet-B4 as Feature Extractor)
+
+    Trained on 1 NVDIA RTX 3080
+
+    - Optimizer: Adam
+    - Learning rate: 0.001
+    - Loss Function: BinaryCrossentropy
+    - Batch size: 32
+    - Epoch: 10
+
+    เวลาที่ใช้ในการ Train 48 วินาที
+
+#### Model #3 (ResNet50 as Feature Extractor)
 
     Trained on 1 NVDIA RTX 3080
 
@@ -75,25 +92,90 @@
 
 #### Train/Validation Data Result
 
+ในส่วนของ Train vs Validation Accuracy ของทั้ง 3 models จะเป็นไปดังกราฟต่อไปนี้้
+
+1. VGG16
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_vgg16.JPG?raw=true" style="width:500px;"/>
+
+Final epoch accuracy:
+    - train: 1.00
+    - validation: 0.9668
+
+2. EfficientNet-B4
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_eff.JPG?raw=true" style="width:500px;"/>
+
+Final epoch accuracy:
+    - train: 0.9964
+    - validation: 0.9668
+
+3. ResNet50
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/main/images/train_val_res.JPG?raw=true" style="width:500px;"/>
+
+Final epoch accuracy:
+    - train: 1.00
+    - validation: 0.9419
+
+ถ้าหากดูจาก Validation Accuracy แล้ว VGG16 ได้ค่า Accuracy ที่มากที่สุดจากทั้ง 3 models
 
 #### Test Data Result
 
+ในส่วนของ Test Data เราทำการเปรียบเทียบค่า Accuracy ของทั้ง 3 models และได้ผลลัพธ์ดังนี้
+
+- VGG16: 0.9594
+- EfficientNet-B4: 0.9710
+- ResNet50: 0.9427
+
+ซึ่ง EfficientNet-B4 ได้ค่า Accuracy ที่มากที่สุด ซึ่งเป็นไปตามที่คาดการณ์ เพราะค่า Top-1 Accuracy บน Imagenet dataset ของ EfficientNet-B4 นั้นมีค่ามากที่สุดจากทั้ง 3 models
 
 #### Pretrained Result Comparison
 
+ในส่วนของการเปรียบเทียบประสิทธิภาพระหว่าง Pretrained model กับ model ที่เราทำการสร้างขึ้นมา
+ทางกลุ่มเราทำการเปรียบเทียบโดยดูจากค่า Accuracy ที่ได้จากบน Test Data โดยเราทำการดู Accuracy แยกเป็นต่อ class แทน เนื่องจากจะทำให้เห็นความแตกต่างของ Accuracy ของแต่ล่ะ class ว่ามีประสิทธิภาพที่ดี หรือแย่กว่าได้ชัดเจน
+โดยเราทำการเปรียบเทียบโดยใช้ EfficientNet-B4 เนื่องจากเป็น model ที่ได้ค่า Test Accuracy มากที่สุด
+
+1. Real Dog Accuracy
+
+ในส่วนของ Real Dog เราจะทำการดู Accuracy ของ Test Data เฉพาะรูปที่เป็นสุนัขจริงๆเท่านั้น 
+และเนื่องจาก Pretrained model นั้นมี class ที่เป็นไปได้ทั้งหมด 1000 class เราจึงทำการวัด Accuracy ด้วยการดูว่า class ที่ pretrained model ทำนายออกมานั้น เป็น class ที่จัดเป็นสุนัข หรือสัตว์สายพันธุ์ใกล้เคียงกัน (เช่น หมาป่า หรือสุนัขจิ้งจอก) หรือไม่ โดย class ทั้งหมดที่จัดว่าอยู่ในหมวดหมู่นี้มีทั้งหมด 206 classes
+
+โดยค่า Accuracy จะได้ดังต่อไปนี้
+
+Pretrained EfficientNet-B4: 0.9934
+Model #2 (Efficientnet-B4 as Feature Extractor): 0.9664
+
+จะสังเกตว่า Accuracy ของ Model ของเรานั้นได้ค่าที่ต่ำกว่า pretrained model
+
+2. Toy Dog Accuracy
+
+ในส่วนของ Toy Dog เราจะทำการดู Accuracy ของ Test Data เฉพาะรูปที่เป็นสุนัขของเล่นเท่านั้น 
+โดย class ของ pretrained model ที่เราจัดว่าอยู่ในหมวดหมู่ของสุนัขของเล่นนั้นมีทั้งหมด 5 classes ('miniature_poodle','toy_terrier','toy_poodle','miniature_schnauzer','miniature_pinscher')
+
+โดยค่า Accuracy จะได้ดังต่อไปนี้
+Pretrained EfficientNet-B4: 0.3571
+Model #2 (Efficientnet-B4 as Feature Extractor): 0.9745
+
+จะสังเกตว่า Accuracy ของ Model ของเรานั้นได้ค่าที่สูงกว่า pretrained model มาก
+
 ## Discussion
 
+เมื่อสังเกตจากการเปรียบเทียบ Test Accuracy ของแต่ล่ะ class ระหว่าง pretrained model และ model ของเราแล้วนั้น
+จะเห็นว่าความสามารถในการทำนายว่ารูปนั้นเป็นสุนัขของเล่นหรือไม่ของ model ของเรานั้นทำได้ดีกว่า pretained model อย่างมาก แต่ก็ต้องแลกกับ Accuracy ของการทำนายสุนัขจริงๆที่ลดลงเล็กน้อย
+ซึ่งเป็นไปตามสมมติฐานเนื่องจากรูปของสุนัขจริงๆ และสุนัขของเล่นนั้นมีความคล้ายกันมาก การที่ทำให้ model นั้นทำนายสุนัขของเล่นได้ดี จึงทำให้การทำนายสุนัขจริงๆนั้นแย่ลง เพราะโอกาสที่ model จะทำนาบว่าสุนัขจริงๆเป็นสุนัขของเล่นนั้นมีมากขึ้น
 
 ## Conclusion
+
 
 
 ## References
 - https://towardsdatascience.com/complete-architectural-details-of-all-efficientnet-models-5fd5b736142
 
 ## Members
-- (20%) 6220422048 กชกร เรืองศรี ()
+- (20%) 6220422048 กชกร เรืองศรี (รวบรวมรูปภาพ + ทดลอง InceptionV3)
 - (0%) 6220422061 ไตรเทพ จันทร์เทพ (ติดต่อไม่ได้)
-- (20%) 6220422065 สุธาสินี โพธิ์แจ่ม ()
-- (20%) 6310422028 วรเมธ ปลอดโปร่ง ()
-- (20%) 6310422031 ธนัตถ์กรณ์ ชื่นบรรลือสุข ()
-- (20%) 6310422046 วีระศักดิ์ การุณย์ ()
+- (20%) 6220422065 สุธาสินี โพธิ์แจ่ม (รวบรวมรูปภาพ + ทดลอง NasNet)
+- (20%) 6310422028 วรเมธ ปลอดโปร่ง (รวบรวมรูปภาพ + ทดลอง VGG16)
+- (20%) 6310422031 ธนัตถ์กรณ์ ชื่นบรรลือสุข (ทดลอง EfficientNet + สรุปผล)
+- (20%) 6310422046 วีระศักดิ์ การุณย์ (รวบรวมรูปภาพ + ทดลอง ResNet50)
