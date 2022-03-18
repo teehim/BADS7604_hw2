@@ -138,6 +138,17 @@
 
 ซึ่ง EfficientNet-B4 ได้ค่า Accuracy ที่มากที่สุด ซึ่งเป็นไปตามที่คาดการณ์ เพราะค่า Top-1 Accuracy บน Imagenet dataset ของ EfficientNet-B4 นั้นมีค่ามากที่สุดจากทั้ง 3 models
 
+นอกจากนี้แล้วทางกลุ่มเราได้ใช้เทคนิค Grad-CAM มาเพื่อตรวจสอบว่า model นั้นทำการทำนายโดยดูจากรูปบริเวณของเล่นหรือไม่
+เนื่องจากรูปสุนัขของเล่นส่วนมากที่เราได้ทำการรวบรวมมานั้นมีพื้นหลังที่เป็นสีขาวอย่างเดียว
+
+ซึ่งเมื่อทำการสุ่มรูปสุนัขของเล่นที่มีพื้นหลังสีขาวขึ้นมาดูแล้ว พบว่า model นั้นทำนายโดยดูจากรูปบริเวณของเล่นเป็นส่วนใหญ่
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM1.png?raw=true" style="width:200px;"/>
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM2.png?raw=true" style="width:200px;"/>
+
+<img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/gradCAM3.png?raw=true" style="width:200px;"/>
+
 ---
 
 #### Pretrained Result Comparison
@@ -184,7 +195,7 @@
 
 ## Conclusion
 
-จากกา
+การทำ Transfer Learning โดยใช้ pretrained model ที่ train บน imagenet dataset แล้วมาใช้เป็น feature extractor ทำให้ได้ model ที่มีประสิทธิภาพที่ดี และไม่จำเป็นจะต้องทำการ train ในส่วนของ Convolutional Layer เลย ทำให้ทรัพยากรที่ใช้ในการ train นั้นลดลงมาก
 
 ## References
 - https://towardsdatascience.com/complete-architectural-details-of-all-efficientnet-models-5fd5b736142
