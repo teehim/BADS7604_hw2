@@ -24,7 +24,7 @@
 1. www.flickr.com
 2. www.pexels.com
 3. www.pinterest.com
-4. pixabay.com
+4. www.pixabay.com
 
 โดยจำนวนรูปภาพที่เราสามารถรวบรวมได้สำหรับแต่ล่ะ class มีจำนวนทั้งหมด 1148 รูป แบ่งเป็น
 - Real Dog: 471 รูป
