@@ -35,6 +35,13 @@
 รูปภาพทั้งหมดจะถูก preprocess โดยจาก resize ให้อยู่ในขนาด 224 x 224 สำหรับ vgg16, ResNet50 และ 380 x 380 สำหรับ efficientnet-b4 และแปลงให้กลายเป็น array (3-channels)
 จากนั้นจึงนำ array ที่ได้ไปผ่าน function preprocess_input ของ keras ตาม network ที่เลือกใช้ (e.g. vgg16)
 
+#### Data Augmentation
+
+เราได้ทำกระบวนการ Data augmentation เพิ่มเติมโดยมีการทำ augment ทั้งหมด 4 แบบดังนี้
+1. horizontal flip
+2. vertical flip
+3. zoom (zoom_range=0.2)
+4. rotation (rotation_range=20)
 
 #### Data splitting
     
@@ -105,7 +112,7 @@ Activation function ในการ classify
     - Batch size: 64
     - Epoch: 10
 
-    เวลาที่ใช้ในการ Train 21 วินาที
+    เวลาที่ใช้ในการ Train 43 วินาที
 
 #### Model #2 (Efficientnet-B4 as Feature Extractor)
 
@@ -117,7 +124,7 @@ Activation function ในการ classify
     - Batch size: 32
     - Epoch: 10
 
-    เวลาที่ใช้ในการ Train 73 วินาที
+    เวลาที่ใช้ในการ Train 160 วินาที
 
 #### Model #3 (ResNet50 as Feature Extractor)
 
@@ -129,7 +136,7 @@ Activation function ในการ classify
     - Batch size: 64
     - Epoch: 10
 
-    เวลาที่ใช้ในการ Train 21 วินาที
+    เวลาที่ใช้ในการ Train 50 วินาที
 
 ## Results
 
@@ -141,25 +148,25 @@ Activation function ในการ classify
 
 <img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_vgg16.png?raw=true" style="width:700px;"/>
 
-    Final epoch accuracy:
-        - train: 1.00
-        - validation: 0.9668
+    Best epoch accuracy:
+        - train: 0.9716
+        - validation: 0.9208
 
 **2. EfficientNet-B4**
 
 <img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_eff.png?raw=true" style="width:700px;"/>
 
-    Final epoch accuracy:
-        - train: 0.9964
-        - validation: 0.9668
+    Best epoch accuracy:
+        - train: 0.9858
+        - validation: 0.9667
 
 **3. ResNet50**
 
 <img src="https://github.com/teehim/BADS7604_hw2/blob/master/images/train_val_res.png?raw=true" style="width:700px;"/>
 
-    Final epoch accuracy:
-        - train: 1.00
-        - validation: 0.9419
+    Best epoch accuracy:
+        - train: 0.9449
+        - validation: 0.9417
 
 ถ้าหากดูจาก Validation Accuracy แล้ว VGG16 และ EfficientNet-B4 ได้ค่า Accuracy ที่มากที่สุดจากทั้ง 3 models
 
@@ -169,9 +176,9 @@ Activation function ในการ classify
 
 ในส่วนของ Test Data เราทำการเปรียบเทียบค่า Accuracy ของทั้ง 3 models และได้ผลลัพธ์ดังนี้
 
-    - VGG16: 0.9594
-    - EfficientNet-B4: 0.9710
-    - ResNet50: 0.9427
+    - VGG16: 0.9304
+    - EfficientNet-B4: 0.9623
+    - ResNet50: 0.8840
 
 ซึ่ง EfficientNet-B4 ได้ค่า Accuracy ที่มากที่สุด ซึ่งเป็นไปตามที่คาดการณ์ เพราะค่า Top-1 Accuracy บน Imagenet dataset ของ EfficientNet-B4 นั้นมีค่ามากที่สุดจากทั้ง 3 models
 
@@ -203,8 +210,8 @@ Activation function ในการ classify
 
 โดยค่า Accuracy จะได้ดังต่อไปนี้
 
-    - Pretrained EfficientNet-B4: 0.9934
-    - Model #2 (Efficientnet-B4 as Feature Extractor): 0.9664
+    - Pretrained EfficientNet-B4: 0.9932
+    - Model #2 (Efficientnet-B4 as Feature Extractor): 0.9731
 
 จะสังเกตว่า Accuracy ของ Model ของเรานั้นได้ค่าที่ต่ำกว่า pretrained model
 
@@ -218,7 +225,7 @@ Activation function ในการ classify
 โดยค่า Accuracy จะได้ดังต่อไปนี้
 
     - Pretrained EfficientNet-B4: 0.3571
-    - Model #2 (Efficientnet-B4 as Feature Extractor): 0.9745
+    - Model #2 (Efficientnet-B4 as Feature Extractor): 0.9540
 
 จะสังเกตว่า Accuracy ของ Model ของเรานั้นได้ค่าที่สูงกว่า pretrained model มาก
 
